@@ -8,8 +8,7 @@ export default async function (req, res) {
         res.status(404).json({ message: "Todo not found" })
         return
     }
-
-    if (todo.userId !== req.userId) {
+    if (todo.userId.toString() !== req.userId) {
         res.status(403).json({ message: "Forbidden" })
         return
     }
@@ -21,7 +20,7 @@ export default async function (req, res) {
         userId: req.userId
     }
 
-    const result = await Todo.findByIdAndUpdate(req.params.id, obj)
+    const result = await Todo.findByIdAndUpdate(req.params.id, obj, {new: true})
     res.status(200).json(result) 
 
 }
