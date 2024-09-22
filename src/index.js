@@ -4,12 +4,24 @@ import cors from "cors"
 import dotenv from "dotenv"
 import todo from "./routes/todo.js"
 import user from "./routes/user.js"
+import rateLimit from "express-rate-limit"
 dotenv.config()
 
 const app = express()
 
+const limitter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: "draft-7",
+    legacyHeaders: false,
+})
 
 
+app.get("/api/hello-world", (req, res) => {
+    res.status(200).json({message: "Hello World"})
+})
+
+app.use(limitter)
 app.use(cors())
 app.use(express.json())
 app.use("/todos", todo)
@@ -27,3 +39,5 @@ const startApp = () => {
 }
 
 startApp()
+
+export default app

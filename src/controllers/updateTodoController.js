@@ -8,7 +8,7 @@ export default async function (req, res) {
         res.status(404).json({ message: "Todo not found" })
         return
     }
-    if (todo.userId.toString() !== req.userId) {
+    if (todo.userId.toString() !== req.user._id.toString()) {
         res.status(403).json({ message: "Forbidden" })
         return
     }

@@ -19,5 +19,5 @@ export default async function (req, res) {
         .sort({ title: sort === "ASC" ? 1 : -1 })
         .lean()
     const filteredTodos = filter(todos, term)
-    res.status(200).json({ data: sortedTodos, page: page, limit: limit, total: filteredTodos.length, term, sort })
+    res.status(200).json({ data: filteredTodos, page: page, limit: limit, total: filteredTodos.length, term, sort })
 }

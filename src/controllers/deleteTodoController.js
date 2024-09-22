@@ -8,7 +8,7 @@ export default async function(req, res){
         return
     }
 
-    if(todo.userId !== req.userId){
+    if(todo.userId.toString() !== req.user._id.toString()){
         res.status(403).json({message: "Forbidden"})
         return
     }
